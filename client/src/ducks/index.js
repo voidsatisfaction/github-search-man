@@ -1,19 +1,19 @@
+import { combineReducers } from 'redux';
+
+import myWatchingRepos from './myWatchingRepos';
+import searchedRepos from './searchedRepos';
+import userInfo from './userInfo';
+
 const initialState = {
-  myRepos: [],
+  myWatchingRepos: [],
   searchedRepos: [],
-  test: 'testing'
+  userInfo: {},
 };
 
-const storeOfApp = (state = initialState, action) => {
-  switch (action.type) {
-    case 'TEST':
-      return {
-        ...state,
-        test: 'tested!!!!'
-      };
-    default:
-      return state;
-  } 
-};
+const reducer = combineReducers({
+  myWatchingRepos,
+  searchedRepos,
+  userInfo
+});
 
-export default storeOfApp;
+export default reducer;
