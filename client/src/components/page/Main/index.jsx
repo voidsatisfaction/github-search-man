@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 
-import TextField from 'material-ui/TextField';
-
 import ListRepos from '../../organism/ListRepos';
 import MainWrapper from '../../molecule/MainWrapper';
 import Panel from '../../molecule/Panel';
+import SearchBar from '../../atom/SearchBar';
 
 const listLegends = ['id','name','language','stars','updated'];
 
@@ -13,13 +12,7 @@ const Main = (props) => (
     <Panel col="1-6" />
     <Panel col="3-6">
       <h1>Repository Search</h1>
-      <TextField 
-        fullWidth
-        hintText="Input Repositry keyword!"
-        style={{
-          margin: '20px'
-        }}
-      />
+      <SearchBar />
       <ListRepos
         legends={listLegends}
       />
