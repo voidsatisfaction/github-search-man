@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Header from './components/organism/Header';
-import Main from './components/organism/Main';
+import Main from './components/page/Main';
 
 export default class App extends Component {
   state = {  }

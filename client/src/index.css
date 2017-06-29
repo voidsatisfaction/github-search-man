@@ -30,3 +30,13 @@ h3 {
   font-weight: 300;
   text-transform: uppercase;
 }
+
+/* ----------------------------------------------- */
+/* MAIN */
+/* ----------------------------------------------- */
+
+article.main {
+  text-align: center;
+  background-color: #fff;
+  min-height: 100vh;
+}
