@@ -12,7 +12,11 @@ const Main = (props) => (
     <Panel col="1-8" />
     <Panel col="3-6">
       <h1>Repository Search</h1>
-      <SearchBar />
+      <SearchBar
+        fontSize="130%"
+        width="100%"
+        margin={20}
+      />
       <ListRepos
         legends={listLegends}
       />
