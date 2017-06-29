@@ -12,17 +12,35 @@ export default connect (
     ...props,
   }),
 )(class App extends Component {
-  state = {  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchText: ''
+    };
+    this.searchInputOnChange = this.searchInputOnChange.bind(this);
+  }
+
+  searchInputOnChange(event) {
+    this.setState({
+      searchText: event.target.value,
+    });
+  }
+
   render() {
-    console.log(this.props)
-    this.props.dispatch({ type: 'TEST' })
+    const { searchedRepos } = this.props;
+    const { searchText } = this.state;
+    console.log(searchText)
     return (
       <div>
         <Header
           title="Github Search man"
           leftIcon="muidocs-icon-navigation-expand-more"
         />
-        <Main />
+        <Main
+          searchText={searchText}
+          searchedRepos={searchedRepos}
+          searchInputOnChange={this.searchInputOnChange}
+        />
       </div>
     );
   }

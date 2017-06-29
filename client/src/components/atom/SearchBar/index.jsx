@@ -14,6 +14,7 @@ const SearchBar = (props) => {
         fontSize,
         width
       }}
+      onChange={props.onChange}
     />);
 };
 

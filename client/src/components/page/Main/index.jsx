@@ -16,6 +16,7 @@ const Main = (props) => (
         fontSize="130%"
         width="100%"
         margin={20}
+        onChange={props.searchInputOnChange}
       />
       <ListRepos
         legends={listLegends}
