@@ -9,7 +9,7 @@ const listLegends = ['id','name','language','stars','updated'];
 
 const Main = (props) => (
   <MainWrapper>
-    <Panel col="1-6" />
+    <Panel col="1-8" />
     <Panel col="3-6">
       <h1>Repository Search</h1>
       <SearchBar />
@@ -17,10 +17,10 @@ const Main = (props) => (
         legends={listLegends}
       />
     </Panel>
-    <Panel col="1-6">
+    <Panel col="1-4">
       <h1>watched</h1>
     </Panel>
-    <Panel col="1-6" />
+    <Panel col="1-8" />
   </MainWrapper>
 );
 
