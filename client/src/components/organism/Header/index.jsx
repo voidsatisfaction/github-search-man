@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 
-const Header = () => (
+const Header = (props) => (
   <AppBar 
-    title="Github Searchman"
-    iconClassNameRight="muidocs-icon-navigation-expand-more"
+    title={props.title}
+    iconClassNameRight={props.leftIcon}
   />
 );
 
