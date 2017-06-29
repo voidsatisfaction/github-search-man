@@ -5,11 +5,17 @@ import { connect } from 'react-redux';
 import Header from './components/organism/Header';
 import Main from './components/page/Main';
 
+import * as actionRepos from './ducks/searchedRepos';
+
 export default connect (
   (state) => (state),
   (dispatch, props) => ({
-    dispatch,
     ...props,
+    action: {
+      getSearchedRepos: (payloads) => {
+        dispatch(actionRepos.getSearchedRepos(payloads));
+      },
+    }
   }),
 )(class App extends Component {
   constructor(props) {
@@ -21,15 +27,13 @@ export default connect (
   }
 
   searchInputOnChange(event) {
-    this.setState({
-      searchText: event.target.value,
-    });
+    const searchText = event.target.value;
+    this.props.action.getSearchedRepos({ searchText });
   }
 
   render() {
     const { searchedRepos } = this.props;
     const { searchText } = this.state;
-    console.log(searchText)
     return (
       <div>
         <Header

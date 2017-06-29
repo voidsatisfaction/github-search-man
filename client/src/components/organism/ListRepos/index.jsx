@@ -8,6 +8,11 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
+const commonStyle = {
+  padding: '10px',
+  width: '10%'
+};
+
 const ListRepos = (props) => {
   return (
     <Table>
@@ -17,39 +22,48 @@ const ListRepos = (props) => {
         enableSelectAll={false}
       >
         <TableRow>
-          <TableHeaderColumn>ID</TableHeaderColumn>
-          <TableHeaderColumn>Name</TableHeaderColumn>
-          <TableHeaderColumn>Status</TableHeaderColumn>
+          <TableHeaderColumn
+            style={{
+              padding: '10px',
+              width: '20%'
+          }}>
+            {props.legends[0]}
+          </TableHeaderColumn>
+          <TableHeaderColumn style={commonStyle}>
+            {props.legends[1]}
+          </TableHeaderColumn>
+          <TableHeaderColumn style={commonStyle}>
+            {props.legends[2]}
+          </TableHeaderColumn>
+          <TableHeaderColumn style={commonStyle}>
+            {props.legends[3]}
+          </TableHeaderColumn>
         </TableRow>
       </TableHeader>
       <TableBody
         displayRowCheckbox={false}
       >
-        <TableRow>
-          <TableRowColumn>1</TableRowColumn>
-          <TableRowColumn>John Smith</TableRowColumn>
-          <TableRowColumn>Employed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>2</TableRowColumn>
-          <TableRowColumn>Randal White</TableRowColumn>
-          <TableRowColumn>Unemployed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>3</TableRowColumn>
-          <TableRowColumn>Stephanie Sanders</TableRowColumn>
-          <TableRowColumn>Employed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>4</TableRowColumn>
-          <TableRowColumn>Steve Brown</TableRowColumn>
-          <TableRowColumn>Employed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>5</TableRowColumn>
-          <TableRowColumn>Christopher Nolan</TableRowColumn>
-          <TableRowColumn>Unemployed</TableRowColumn>
-        </TableRow>
+        {
+          props.data.length > 0 ?
+          props.data.map((element, i) => {
+            return (
+              <TableRow key={i}>
+                <TableRowColumn
+                  style={{
+                    padding: '10px',
+                    width: '20%'
+                  }}
+                >
+                  {element.name}
+                </TableRowColumn>
+                <TableRowColumn style={commonStyle}>{element.language}</TableRowColumn>
+                <TableRowColumn style={commonStyle}>{element.star}</TableRowColumn>
+                <TableRowColumn style={commonStyle}>{element.updated}</TableRowColumn>
+              </TableRow>
+            );
+          }) :
+          null
+        }
       </TableBody>
     </Table>
   );

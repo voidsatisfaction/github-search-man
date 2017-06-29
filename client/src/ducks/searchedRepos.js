@@ -1,3 +1,5 @@
+import * as github from '../api/github';
+
 /* ACTIONS */
 const GET_SEARCHED_REPOS = 'repos/searched/GET';
 
@@ -7,7 +9,9 @@ const initialState = [];
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case GET_SEARCHED_REPOS:
-      break;
+      return [
+        ...action.data,
+      ]
     default:
       return state;
   }
@@ -15,7 +19,23 @@ const reducer = (state = initialState, action = {}) => {
 
 /* ACTION CREATORS */
 export const getSearchedRepos = (payloads) => {
-  return { type: GET_SEARCHED_REPOS, payloads };
+  const text = payloads.searchText;
+
+  return function(dispatch) {
+    return github.searchRepos({ text })
+      .then((res, error) => {
+        console.log(res.data.items);
+        const data = res.data.items.map((element) => ({
+          name: element.full_name,
+          url: element.url,
+          watchers: element.watchers,
+          star: element.stargazers_count,
+          language: element.language,
+          updated: element.updated_at
+        }));
+        dispatch({ type: GET_SEARCHED_REPOS, data })
+      });
+  }
 }
 
 export default reducer;

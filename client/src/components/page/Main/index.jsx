@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 import ListRepos from '../../organism/ListRepos';
-import MainWrapper from '../../molecule/MainWrapper';
+import Container from '../../molecule/Container';
 import Panel from '../../molecule/Panel';
 import SearchBar from '../../atom/SearchBar';
 
-const listLegends = ['id','name','language','stars','updated'];
+const listLegends = ['name','language','stars','updated'];
 
 const Main = (props) => (
-  <MainWrapper>
+  <Container>
     <Panel col="1-8" />
     <Panel col="3-6">
       <h1>Repository Search</h1>
@@ -20,13 +20,14 @@ const Main = (props) => (
       />
       <ListRepos
         legends={listLegends}
+        data={props.searchedRepos}
       />
     </Panel>
     <Panel col="1-4">
       <h1>watched</h1>
     </Panel>
     <Panel col="1-8" />
-  </MainWrapper>
+  </Container>
 );
 
 export default Main;
