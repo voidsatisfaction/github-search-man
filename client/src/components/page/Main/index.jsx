@@ -30,26 +30,20 @@ export default connect (
       searchText: ''
     };
     this.searchInputOnChange = this.searchInputOnChange.bind(this);
-    this.getUserInfoOnClick = this.getUserInfoOnClick.bind(this);
   }
   componentWillMount() {
     if (this.props.location.search.includes('code')) {
       const params = new URLSearchParams(this.props.location.search);
       const code = params.get('code');
-      this.props.action.getUserInfo();
-      alert(code);
+      this.props.action.getUserInfo({ code, platform: 'github' })
     }
   }
   searchInputOnChange(event) {
     const searchText = event.target.value;
     this.props.action.getSearchedRepos({ searchText });
   }
-  getUserInfoOnClick(event) {
-    this.props.action.getUserInfo({ hi: 'hi' });
-  }
 
   render() {
-    console.log(this.props);
     const { searchedRepos } = this.props;
     const { searchText } = this.state;
     const { getUserInfoOnClick } = this.props.action;

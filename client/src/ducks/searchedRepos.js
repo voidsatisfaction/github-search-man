@@ -1,4 +1,4 @@
-import * as github from '../api/github';
+import * as github from '../api/github/';
 
 /* ACTIONS */
 const GET_SEARCHED_REPOS = 'repos/searched/GET';

@@ -2,10 +2,13 @@ import axios from 'axios';
 
 import api from './base';
 
-export function getToken({ platform }) {
-  return api.get('/login')
-    .then((res) => {
-      console.log(res);
-      return res;
-    });
+export function getToken({ code, platform }) {
+  return api.post('/login', {
+    platform,
+    code
+  })
+  .then((res) => {
+    console.log(res);
+    return res;
+  });
 }

@@ -12,8 +12,8 @@ const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case GET_USER_INFO:
       return {
-        token: 'hi'
-      }
+        token: action.payloads.token,
+      };
     default:
       return state;
   }
@@ -22,9 +22,9 @@ const reducer = (state = initialState, action = {}) => {
 /* ACTION CREATORS */
 export const getUserInfo = (payloads) => {
   return function(dispatch) {
-    return oauth.getToken({ platform: 'github' })
+    return oauth.getToken({ platform: payloads.platform, code: payloads.code })
       .then((response) => {
-        console.log(response);
+        const payloads = { token: response.data.token };
         dispatch({ type: GET_USER_INFO, payloads });
       });
   };
