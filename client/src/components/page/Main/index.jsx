@@ -68,7 +68,7 @@ export default connect (
           />
         </Panel>
         <Panel col="1-4">
-          <h1>watched</h1>
+          <h1>Watching</h1>
           {
             userInfo.token ?
             <ListWatchingRepos 

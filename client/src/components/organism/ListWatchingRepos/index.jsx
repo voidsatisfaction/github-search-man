@@ -16,7 +16,7 @@ const makeTable = ({ watchingRepos }) => (
     <TableHeader>
       <TableRow>
         <TableHeaderColumn>Name</TableHeaderColumn>
-        <TableHeaderColumn>Status</TableHeaderColumn>
+        <TableHeaderColumn>Author</TableHeaderColumn>
       </TableRow>
     </TableHeader>
     <TableBody>
