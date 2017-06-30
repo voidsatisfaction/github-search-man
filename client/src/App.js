@@ -1,52 +1,24 @@
 import React, { Component } from 'react';
 
-import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './components/organism/Header';
 import Main from './components/page/Main';
 
-import * as actionRepos from './ducks/searchedRepos';
-
-export default connect (
-  (state) => (state),
-  (dispatch, props) => ({
-    ...props,
-    action: {
-      getSearchedRepos: (payloads) => {
-        dispatch(actionRepos.getSearchedRepos(payloads));
-      },
-    }
-  }),
-)(class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchText: ''
-    };
-    this.searchInputOnChange = this.searchInputOnChange.bind(this);
-  }
-
-  searchInputOnChange(event) {
-    const searchText = event.target.value;
-    this.props.action.getSearchedRepos({ searchText });
-  }
-
+export default class App extends Component {
   render() {
-    const { searchedRepos } = this.props;
-    const { searchText } = this.state;
     return (
-      <div>
-        <Header
-          title="Github Search man"
-          leftIcon="muidocs-icon-navigation-expand-more"
-        />
-        <Main
-          searchText={searchText}
-          searchedRepos={searchedRepos}
-          searchInputOnChange={this.searchInputOnChange}
-          listLegends={['name','language','stars','updated']}
-        />
-      </div>
+      <Router>
+        <div>
+          <Header
+            title="Github Search man"
+            leftIcon="muidocs-icon-navigation-expand-more"
+          />
+          <Switch>
+            <Route exact path="/" component={Main} />
+          </Switch>
+        </div>
+      </Router>
     );
   }
-});
+};
