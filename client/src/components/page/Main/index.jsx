@@ -5,8 +5,6 @@ import Container from '../../molecule/Container';
 import Panel from '../../molecule/Panel';
 import SearchBar from '../../atom/SearchBar';
 
-const listLegends = ['name','language','stars','updated'];
-
 const Main = (props) => (
   <Container>
     <Panel col="1-8" />
@@ -19,7 +17,7 @@ const Main = (props) => (
         onChange={props.searchInputOnChange}
       />
       <ListRepos
-        legends={listLegends}
+        legends={props.listLegends}
         data={props.searchedRepos}
       />
     </Panel>

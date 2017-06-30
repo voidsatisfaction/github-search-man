@@ -44,6 +44,7 @@ export default connect (
           searchText={searchText}
           searchedRepos={searchedRepos}
           searchInputOnChange={this.searchInputOnChange}
+          listLegends={['name','language','stars','updated']}
         />
       </div>
     );
