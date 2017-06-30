@@ -6,6 +6,7 @@ import * as actionRepos from '../../../ducks/searchedRepos';
 import * as actionUsers from '../../../ducks/userInfo';
 
 import ListRepos from '../../organism/ListRepos';
+import ListWatchingRepos from '../../organism/ListWatchingRepos';
 import Container from '../../molecule/Container';
 import Panel from '../../molecule/Panel';
 import SearchBar from '../../atom/SearchBar';
@@ -15,12 +16,12 @@ export default connect (
   (dispatch, props) => ({
     ...props,
     action: {
-      getSearchedRepos: (payloads) => {
-        dispatch(actionRepos.getSearchedRepos(payloads));
-      },
-      getUserInfo: (payloads) => {
-        dispatch(actionUsers.getUserInfo(payloads));
-      }
+      getSearchedRepos: (payloads) => (
+        dispatch(actionRepos.getSearchedRepos(payloads))
+      ),
+      getUserInfo: (payloads) => (
+        dispatch(actionUsers.getUserInfo(payloads))
+      )
     }
   }),
 )(class Main extends Component {
@@ -35,7 +36,7 @@ export default connect (
     if (this.props.location.search.includes('code')) {
       const params = new URLSearchParams(this.props.location.search);
       const code = params.get('code');
-      this.props.action.getUserInfo({ code, platform: 'github' })
+      this.props.action.getUserInfo({ code, platform: 'github' });
     }
   }
   searchInputOnChange(event) {
@@ -44,7 +45,10 @@ export default connect (
   }
 
   render() {
-    const { searchedRepos } = this.props;
+    const {
+      searchedRepos,
+      userInfo
+    } = this.props;
     const { searchText } = this.state;
     const { getUserInfoOnClick } = this.props.action;
     return (
@@ -64,10 +68,16 @@ export default connect (
           />
         </Panel>
         <Panel col="1-4">
-          <h1>watched</h1>
-          <a onClick={getUserInfoOnClick} href="https://github.com/login/oauth/authorize?client_id=6e3a7ceef7e260c19712">
-            Github Login
-          </a>
+          <h1>Watching(nums)</h1>
+          {
+            userInfo.token ?
+            <ListWatchingRepos 
+              watchingRepos={userInfo.watchingRepos}
+            /> :
+            <a onClick={getUserInfoOnClick} href="https://github.com/login/oauth/authorize?client_id=6e3a7ceef7e260c19712">
+              Github Login
+            </a>
+          }
         </Panel>
         <Panel col="1-8" />
       </Container>
