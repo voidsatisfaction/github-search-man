@@ -1,3 +1,5 @@
+import * as oauth from '../api/oauth';
+
 /* ACTIONS */
 const GET_USER_INFO = 'user/info/GET';
 
@@ -9,7 +11,9 @@ const initialState = {
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case GET_USER_INFO:
-      break;
+      return {
+        token: 'hi'
+      }
     default:
       return state;
   }
@@ -17,7 +21,13 @@ const reducer = (state = initialState, action = {}) => {
 
 /* ACTION CREATORS */
 export const getUserInfo = (payloads) => {
-  return { type: GET_USER_INFO, payloads };
+  return function(dispatch) {
+    return oauth.getToken({ platform: 'github' })
+      .then((response) => {
+        console.log(response);
+        dispatch({ type: GET_USER_INFO, payloads });
+      });
+  };
 }
 
 export default reducer;
