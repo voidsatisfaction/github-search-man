@@ -15,12 +15,12 @@ export default connect (
   (dispatch, props) => ({
     ...props,
     action: {
-      getSearchedRepos: (payloads) => {
-        dispatch(actionRepos.getSearchedRepos(payloads));
-      },
-      getUserInfo: (payloads) => {
-        dispatch(actionUsers.getUserInfo(payloads));
-      }
+      getSearchedRepos: (payloads) => (
+        dispatch(actionRepos.getSearchedRepos(payloads))
+      ),
+      getUserInfo: (payloads) => (
+        dispatch(actionUsers.getUserInfo(payloads))
+      )
     }
   }),
 )(class Main extends Component {
@@ -35,7 +35,7 @@ export default connect (
     if (this.props.location.search.includes('code')) {
       const params = new URLSearchParams(this.props.location.search);
       const code = params.get('code');
-      this.props.action.getUserInfo({ code, platform: 'github' })
+      this.props.action.getUserInfo({ code, platform: 'github' });
     }
   }
   searchInputOnChange(event) {
