@@ -6,6 +6,7 @@ import * as actionRepos from '../../../ducks/searchedRepos';
 import * as actionUsers from '../../../ducks/userInfo';
 
 import ListRepos from '../../organism/ListRepos';
+import ListWatchingRepos from '../../organism/ListWatchingRepos';
 import Container from '../../molecule/Container';
 import Panel from '../../molecule/Panel';
 import SearchBar from '../../atom/SearchBar';
@@ -44,7 +45,10 @@ export default connect (
   }
 
   render() {
-    const { searchedRepos } = this.props;
+    const {
+      searchedRepos,
+      userInfo
+    } = this.props;
     const { searchText } = this.state;
     const { getUserInfoOnClick } = this.props.action;
     return (
@@ -65,9 +69,15 @@ export default connect (
         </Panel>
         <Panel col="1-4">
           <h1>watched</h1>
-          <a onClick={getUserInfoOnClick} href="https://github.com/login/oauth/authorize?client_id=6e3a7ceef7e260c19712">
-            Github Login
-          </a>
+          {
+            userInfo.token ?
+            <ListWatchingRepos 
+              watchingRepos={userInfo.watchingRepos}
+            /> :
+            <a onClick={getUserInfoOnClick} href="https://github.com/login/oauth/authorize?client_id=6e3a7ceef7e260c19712">
+              Github Login
+            </a>
+          }
         </Panel>
         <Panel col="1-8" />
       </Container>
