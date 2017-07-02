@@ -61,12 +61,14 @@ export default connect (
           <SearchBar
             fontSize="130%"
             width="100%"
-            margin={20}
+            margin={10}
             onChange={this.searchInputOnChange}
           />
           <ListRepos
-            legends={['name', 'language', 'stars', 'updated']}
+            legends={['name', 'language', 'stars', 'last updated', 'follow']}
+            watchingRepos={userInfo.watchingRepos}
             data={searchedRepos}
+            login={!!userInfo.token}
           />
         </Panel>
         <Panel col="1-4">

@@ -25,6 +25,7 @@ export const getSearchedRepos = (payloads) => {
     return github.searchRepos({ text })
       .then((res, error) => {
         const data = res.data.items.map((element) => ({
+          id: element.id,
           name: element.full_name,
           url: element.url,
           watchers: element.watchers,

@@ -7,13 +7,69 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import IconButton from 'material-ui/IconButton';
+import AddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
+import Block from 'material-ui/svg-icons/content/block';
 
 const commonStyle = {
   padding: '10px',
   width: '10%'
 };
 
+const toggleFollowButton = () => {
+
+};
+
+const followButton = () => (
+  <IconButton
+    tooltip="top-center"
+    touch
+    onTouchTap={(e) => {
+      console.log('hi');
+      console.log(e);
+    }}
+  >
+    <AddCircleOutline />
+  </IconButton>
+);
+
+const unfollowButton = () => (
+  <IconButton
+    tooltip="top-center"
+    touch
+    onTouchTap={(e) => {
+      console.log('hi');
+      console.log(e);
+    }}
+  >
+    <Block />
+  </IconButton>
+);
+
+const followColumn = ({ login, follow }) => {
+  if (login && follow) {
+    return (
+      <TableRowColumn style={commonStyle}>
+        { unfollowButton() }
+      </TableRowColumn>
+    );
+  } else if(login) {
+    return (
+      <TableRowColumn style={commonStyle}>
+        { followButton() }
+      </TableRowColumn>
+    );
+  } else {
+    return null;
+  }
+};
+
 const ListRepos = (props) => {
+  const watchingReposOnlyId = props.watchingRepos.reduce((prev, current) => {
+    prev.push(current.id);
+    return prev;
+  }, [])
+  console.log(watchingReposOnlyId);
   return (
     <Table>
       <TableHeader
@@ -25,7 +81,7 @@ const ListRepos = (props) => {
           <TableHeaderColumn
             style={{
               padding: '10px',
-              width: '20%'
+              width: '15%'
           }}>
             {props.legends[0]}
           </TableHeaderColumn>
@@ -38,6 +94,13 @@ const ListRepos = (props) => {
           <TableHeaderColumn style={commonStyle}>
             {props.legends[3]}
           </TableHeaderColumn>
+          {
+            props.login ?
+            <TableHeaderColumn style={commonStyle}>
+              {props.legends[4]}
+            </TableHeaderColumn> :
+            null
+          }
         </TableRow>
       </TableHeader>
       <TableBody
@@ -51,7 +114,7 @@ const ListRepos = (props) => {
                 <TableRowColumn
                   style={{
                     padding: '10px',
-                    width: '20%'
+                    width: '15%'
                   }}
                 >
                   {element.name}
@@ -59,6 +122,12 @@ const ListRepos = (props) => {
                 <TableRowColumn style={commonStyle}>{element.language}</TableRowColumn>
                 <TableRowColumn style={commonStyle}>{element.star}</TableRowColumn>
                 <TableRowColumn style={commonStyle}>{element.updated}</TableRowColumn>
+                {
+                  followColumn({
+                    login: props.login,
+                    follow: watchingReposOnlyId.includes(element.id)
+                  })
+                }
               </TableRow>
             );
           }) :
