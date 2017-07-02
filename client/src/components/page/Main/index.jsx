@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
+import url from '../../../env/config';
+
 import * as actionRepos from '../../../ducks/searchedRepos';
 import * as actionUsers from '../../../ducks/userInfo';
 
@@ -74,7 +76,10 @@ export default connect (
             <ListWatchingRepos 
               watchingRepos={userInfo.watchingRepos}
             /> :
-            <a onClick={getUserInfoOnClick} href="https://github.com/login/oauth/authorize?client_id=6e3a7ceef7e260c19712">
+            <a
+              onClick={getUserInfoOnClick}
+              href={url.github}
+            >
               Github Login
             </a>
           }
