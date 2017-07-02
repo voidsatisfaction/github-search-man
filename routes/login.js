@@ -38,7 +38,6 @@ router.post('/', jsonParser, function(req, res, next) {
 
 function getGithubToken({ code }) {
   var data = new FormData()
-  /* HERE SHOULD BE FIXED! */
   data.append('client_id', github.clientId)
   data.append('client_secret', github.clientSecret)
   data.append('code', code)

@@ -1,5 +1,5 @@
-var clientSecret = '1c8f8846f9ad8ddd8eda6607a8cb6ee3f7d53511';
-var clientId = '6e3a7ceef7e260c19712';
+var clientSecret = process.env.GITHUB_CLIENT_SECRET;
+var clientId = process.env.GITHUB_CLIENT_ID;
 
 module.exports = {
   clientSecret,
