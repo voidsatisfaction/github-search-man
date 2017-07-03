@@ -2,10 +2,11 @@ import * as oauth from '../api/oauth';
 import * as github from '../api/github/';
 
 /* ACTIONS */
-const GET_USER_INFO = 'user/info/GET';
-const GET_WATCHING_REPOS = 'user/watching/GET';
+const GET_USER_INFO = 'userInfo/all/GET';
+const GET_WATCHING_REPOS = 'userInfo/watchingRepos/GET';
 
-const ADD_WATCHING_REPO = 'user/info/POST';
+const ADD_WATCHING_REPO = 'userInfo/watchingRepos/POST';
+const DELETE_WATCHING_REPO = 'userInfo/watchingRepos/DELETE';
 
 /* REDUCER */
 const initialState = {
@@ -36,6 +37,15 @@ const reducer = (state = initialState, action = {}) => {
           ...state.watchingRepos
         ],
       };
+    case DELETE_WATCHING_REPO:
+      return {
+        ...state,
+        watchingRepos: [
+          ...state.watchingRepos.filter((repo) => {
+            return repo.id !== action.payloads.id;
+          })
+        ],
+      };
     default:
       return state;
   }
@@ -53,7 +63,7 @@ export const getWatchingRepos = (payloads) => {
         return dispatch({ type: GET_WATCHING_REPOS, payloads });
       })
   };
-}
+};
 
 export const getUserInfo = (payloads) => {
   return function(dispatch) {
@@ -68,7 +78,7 @@ export const getUserInfo = (payloads) => {
         return dispatch(getWatchingRepos({ token }))
       })
   };
-}
+};
 
 export const addWatchingRepos = (payloads) => {
   return function(dispatch) {
@@ -83,6 +93,12 @@ export const addWatchingRepos = (payloads) => {
     console.log(payloads);
     return dispatch({ type: ADD_WATCHING_REPO, payloads });
   };
-}
+};
+
+export const deleteWatchingRepos = (payloads) => {
+  return function(dispatch) {
+    return dispatch({ type: DELETE_WATCHING_REPO, payloads })
+  }
+};
 
 export default reducer;

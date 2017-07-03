@@ -25,6 +25,9 @@ export default connect (
       addWatchingRepos: (payloads) => (
         dispatch(actionUsers.addWatchingRepos(payloads))
       ),
+      deleteWatchingRepos: (payloads) => (
+        dispatch(actionUsers.deleteWatchingRepos(payloads))
+      ),
       getUserInfo: (payloads) => (
         dispatch(actionUsers.getUserInfo(payloads))
       ),
@@ -67,7 +70,7 @@ export default connect (
     const token = this.props.userInfo.token
     this.props.action.unfollowRepo({ fullInfo, token })
       .then((response) => {
-        console.log(response);
+        this.props.action.deleteWatchingRepos(fullInfo);
       })
   }
 
