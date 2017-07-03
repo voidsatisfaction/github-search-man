@@ -21,8 +21,8 @@ const makeTable = ({ watchingRepos }) => (
     </TableHeader>
     <TableBody>
       {
-        watchingRepos.map((repo) => (
-          <TableRow>
+        watchingRepos.map((repo,i) => (
+          <TableRow key={i}>
             <TableRowColumn>{repo.name}</TableRowColumn>
             <TableRowColumn>{repo.owner.login}</TableRowColumn>
           </TableRow>   
