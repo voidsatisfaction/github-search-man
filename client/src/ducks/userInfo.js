@@ -56,7 +56,6 @@ export const getWatchingRepos = (payloads) => {
   return function(dispatch) {
     return github.getMyWatchingRepos({ token: payloads.token })
       .then((response) => {
-        console.log(response);
         const payloads = {
           watchingRepos: response.data
         };
@@ -90,7 +89,6 @@ export const addWatchingRepos = (payloads) => {
       },
       subscriptionUrl:payloads.subscriptionUrl
     };
-    console.log(payloads);
     return dispatch({ type: ADD_WATCHING_REPO, payloads });
   };
 };

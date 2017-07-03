@@ -6,7 +6,6 @@ export function getToken({ code, platform }) {
     code
   })
   .then((res) => {
-    console.log(res);
     return res;
   });
 }
