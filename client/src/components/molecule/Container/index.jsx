@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
+import React from 'react';
 
 const MainWrapper = (props) => (
   <article className="main section">

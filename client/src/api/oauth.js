@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import api from './base';
 
 export function getToken({ code, platform }) {
@@ -8,7 +6,6 @@ export function getToken({ code, platform }) {
     code
   })
   .then((res) => {
-    console.log(res);
     return res;
   });
 }

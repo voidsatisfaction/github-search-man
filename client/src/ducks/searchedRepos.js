@@ -19,17 +19,20 @@ const reducer = (state = initialState, action = {}) => {
 
 /* ACTION CREATORS */
 export const getSearchedRepos = (payloads) => {
+  const token = payloads.token;
   const text = payloads.searchText;
 
   return function(dispatch) {
-    return github.searchRepos({ text })
+    return github.searchRepos({ text, token })
       .then((res, error) => {
         const data = res.data.items.map((element) => ({
+          id: element.id,
           name: element.full_name,
           url: element.url,
           watchers: element.watchers,
           star: element.stargazers_count,
           language: element.language,
+          subscriptionUrl: element.subscription_url,
           updated: element.updated_at
         }));
         dispatch({ type: GET_SEARCHED_REPOS, data })
