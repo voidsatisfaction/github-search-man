@@ -16,47 +16,39 @@ const commonStyle = {
   width: '10%'
 };
 
-const toggleFollowButton = () => {
-
-};
-
-const followButton = () => (
+const followButton = ({ followUrl, fullInfo, followButtonOnPress }) => (
   <IconButton
-    tooltip="top-center"
     touch
     onTouchTap={(e) => {
-      console.log('hi');
-      console.log(e);
+      followButtonOnPress({ fullInfo });
     }}
   >
     <AddCircleOutline />
   </IconButton>
 );
 
-const unfollowButton = () => (
+const unfollowButton = ({ followUrl, fullInfo, unfollowButtonOnPress }) => (
   <IconButton
-    tooltip="top-center"
     touch
     onTouchTap={(e) => {
-      console.log('hi');
-      console.log(e);
+      unfollowButtonOnPress({ fullInfo });
     }}
   >
     <Block />
   </IconButton>
 );
 
-const followColumn = ({ login, follow }) => {
+const followColumn = ({key, login, follow, fullInfo, followButtonOnPress, unfollowButtonOnPress }) => {
   if (login && follow) {
     return (
       <TableRowColumn style={commonStyle}>
-        { unfollowButton() }
+        { unfollowButton({ fullInfo, unfollowButtonOnPress }) }
       </TableRowColumn>
     );
   } else if(login) {
     return (
       <TableRowColumn style={commonStyle}>
-        { followButton() }
+        { followButton({ fullInfo, followButtonOnPress }) }
       </TableRowColumn>
     );
   } else {
@@ -69,7 +61,6 @@ const ListRepos = (props) => {
     prev.push(current.id);
     return prev;
   }, [])
-  console.log(watchingReposOnlyId);
   return (
     <Table>
       <TableHeader
@@ -124,8 +115,12 @@ const ListRepos = (props) => {
                 <TableRowColumn style={commonStyle}>{element.updated}</TableRowColumn>
                 {
                   followColumn({
+                    key: i,
                     login: props.login,
-                    follow: watchingReposOnlyId.includes(element.id)
+                    follow: watchingReposOnlyId.includes(element.id),
+                    fullInfo: element,
+                    followButtonOnPress: props.followButtonOnPress,
+                    unfollowButtonOnPress: props.unfollowButtonOnPress,
                   })
                 }
               </TableRow>

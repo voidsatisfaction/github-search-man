@@ -5,6 +5,8 @@ import * as github from '../api/github/';
 const GET_USER_INFO = 'user/info/GET';
 const GET_WATCHING_REPOS = 'user/watching/GET';
 
+const ADD_WATCHING_REPO = 'user/info/POST';
+
 /* REDUCER */
 const initialState = {
   token: '',
@@ -26,12 +28,33 @@ const reducer = (state = initialState, action = {}) => {
           ...action.payloads.watchingRepos
         ],
       };
+    case ADD_WATCHING_REPO:
+      return {
+        ...state,
+        watchingRepos: [
+          action.payloads,
+          ...state.watchingRepos
+        ],
+      };
     default:
       return state;
   }
 };
 
 /* ACTION CREATORS */
+export const getWatchingRepos = (payloads) => {
+  return function(dispatch) {
+    return github.getMyWatchingRepos({ token: payloads.token })
+      .then((response) => {
+        console.log(response);
+        const payloads = {
+          watchingRepos: response.data
+        };
+        return dispatch({ type: GET_WATCHING_REPOS, payloads });
+      })
+  };
+}
+
 export const getUserInfo = (payloads) => {
   return function(dispatch) {
     return oauth.getToken({ platform: payloads.platform, code: payloads.code })
@@ -44,22 +67,21 @@ export const getUserInfo = (payloads) => {
       .then((token) => {
         return dispatch(getWatchingRepos({ token }))
       })
-      .then(() => {
-        // redirect
-      });
   };
 }
 
-export const getWatchingRepos = (payloads) => {
+export const addWatchingRepos = (payloads) => {
   return function(dispatch) {
-    return github.getMyWatchingRepos({ token: payloads.token })
-      .then((response) => {
-        console.log(response);
-        const payloads = {
-          watchingRepos: response.data
-        };
-        dispatch({ type: GET_WATCHING_REPOS, payloads });
-      })
+    payloads = {
+      id: payloads.id,
+      name: payloads.name.split('/')[1],
+      owner: {
+        login: payloads.name.split('/')[0]
+      },
+      subscriptionUrl:payloads.subscriptionUrl
+    };
+    console.log(payloads);
+    return dispatch({ type: ADD_WATCHING_REPO, payloads });
   };
 }
 

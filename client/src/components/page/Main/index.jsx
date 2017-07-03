@@ -6,6 +6,7 @@ import url from '../../../env/config';
 
 import * as actionRepos from '../../../ducks/searchedRepos';
 import * as actionUsers from '../../../ducks/userInfo';
+import * as actionGithub from '../../../ducks/actionGithub';
 
 import ListRepos from '../../organism/ListRepos';
 import ListWatchingRepos from '../../organism/ListWatchingRepos';
@@ -21,18 +22,26 @@ export default connect (
       getSearchedRepos: (payloads) => (
         dispatch(actionRepos.getSearchedRepos(payloads))
       ),
+      addWatchingRepos: (payloads) => (
+        dispatch(actionUsers.addWatchingRepos(payloads))
+      ),
       getUserInfo: (payloads) => (
         dispatch(actionUsers.getUserInfo(payloads))
+      ),
+      followRepo: (payloads) => (
+        dispatch(actionGithub.followRepo(payloads))
+      ),
+      unfollowRepo: (payloads) => (
+        dispatch(actionGithub.unfollowRepo(payloads))
       )
     }
   }),
 )(class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      searchText: ''
-    };
     this.searchInputOnChange = this.searchInputOnChange.bind(this);
+    this.followButtonOnPress = this.followButtonOnPress.bind(this);
+    this.unfollowButtonOnPress = this.unfollowButtonOnPress.bind(this);
   }
   componentWillMount() {
     if (this.props.location.search.includes('code')) {
@@ -42,8 +51,24 @@ export default connect (
     }
   }
   searchInputOnChange(event) {
+    const token = this.props.userInfo.token;
     const searchText = event.target.value;
-    this.props.action.getSearchedRepos({ searchText });
+    this.props.action.getSearchedRepos({ searchText, token });
+  }
+  followButtonOnPress({ fullInfo }) {
+    const token = this.props.userInfo.token
+    this.props.action.followRepo({ fullInfo, token })
+      .then((response) => {
+        /* dispatch add getWatchingRepos */
+        this.props.action.addWatchingRepos(fullInfo);
+      })
+  }
+  unfollowButtonOnPress({ fullInfo }) {
+    const token = this.props.userInfo.token
+    this.props.action.unfollowRepo({ fullInfo, token })
+      .then((response) => {
+        console.log(response);
+      })
   }
 
   render() {
@@ -51,7 +76,6 @@ export default connect (
       searchedRepos,
       userInfo
     } = this.props;
-    const { searchText } = this.state;
     const { getUserInfoOnClick } = this.props.action;
     return (
       <Container>
@@ -69,6 +93,8 @@ export default connect (
             watchingRepos={userInfo.watchingRepos}
             data={searchedRepos}
             login={!!userInfo.token}
+            followButtonOnPress={this.followButtonOnPress}
+            unfollowButtonOnPress={this.unfollowButtonOnPress}
           />
         </Panel>
         <Panel col="1-4">
