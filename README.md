@@ -18,9 +18,17 @@ Incremental search on github repositories with watch and unwatch functions.
 
 ## How to use
 
-Just go to the **Github Search Man** website and input the repository name that you want to search.
+### requirements
 
-And, your entire watching repos are shown if you logged in with Github OAuth.
+1. node(7.10.0)
+2. yarn(0.24.5)
+
+### local usage
+
+1. `yarn` or `npm install` on `/`(this) directory
+2. `yarn` or `npm install` on `/client` directory
+3. to start server, go to `/` and run `yarn run dev`
+4. to start client `/client` and `yarn run start`
 
 ## **Limitation**
 
