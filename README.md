@@ -28,7 +28,7 @@ Incremental search on github repositories with watch and unwatch functions.
 1. `yarn` or `npm install` on `/`(this) directory
 2. `yarn` or `npm install` on `/client` directory
 3. to start server, go to `/` and run `yarn run dev`
-4. to start client `/client` and `yarn run start`
+4. to start go to client `/client` and `yarn run start`
 
 ## **Limitation**
 
